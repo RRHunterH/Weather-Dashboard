@@ -3,31 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Weather Dashboard</title>
+  <title>Weather App</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <h1>Weather Dashboard</h1>
-    <form id="searchForm">
-      <label for="cityInput">Enter City:</label>
-      <input type="text" id="cityInput" placeholder="City name" required>
-      <button type="submit">Search</button>
-    </form>
-  </header>
-
-  <section id="currentWeather">
-
-  </section>
-
-  <section id="forecast">
-
-  </section>
-
-  <section id="searchHistory">
-
-  </section>
-
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Weather Dashboard</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <div class="jumbotron container-fluid mt-2 text-center p-2" style="background-color:#36368b ;color: #ffffff;">
+        <h1> <strong>Weather Dashboard ☁️</strong></h1>
+    </div>
+  <form id="searchForm">
+    <label for="cityInput">City:</label>
+    <input type="text" id="cityInput" required>
+    <button type="submit">Search</button>
+  </form>
+  <section id="currentWeather"></section>
+  <section id="forecast"></section>
+  <section id="searchHistory"></section>
   <script src="script.js"></script>
 </body>
 </html>
