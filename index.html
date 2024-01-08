@@ -16,16 +16,21 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <div class="jumbotron container-fluid mt-2 text-center p-2" style="background-color:#36368b ;color: #ffffff;">
-        <h1> <strong>Weather Dashboard ☁️</strong></h1>
+      <h1> <strong>Weather Dashboard ☁️</strong></h1>
     </div>
-  <form id="searchForm">
-    <label for="cityInput">Search for a City:</label>
-    <input type="text" id="cityInput" required>
-    <button type="submit">Search</button>
-  </form>
-  <section id="currentWeather"></section>
-  <section id="forecast"></section>
-  <section id="searchHistory"></section>
-  <script src="script.js"></script>
-</body>
-</html>
+    <form id="searchForm">
+      <label for="cityInput">Search for a City:</label>
+      <input type="text" id="cityInput" required>
+      <button type="submit">Search</button>
+    </form>
+    <h4>Todays Weather<h4></h4>
+    <section id="currentWeather"></section>
+    <h3>5-Day Forcast<h3></h3>
+    <section id="forecast"></section>
+    <section id="searchHistory">
+      <button id="deleteSearchesBtn">Delete Searches</button>
+      <ul></ul>
+    </section>
+    <script src="script.js"></script>
+  </body>
+  </html>
