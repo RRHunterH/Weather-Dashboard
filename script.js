@@ -53,10 +53,11 @@ function formatTemperature(temperature) {
 function addToSearchHistory(city) {
     const searchHistorySection = document.getElementById('searchHistory');
     const ul = searchHistorySection.querySelector('ul') || document.createElement('ul');
+    const clearButton = document.getElementById('clearSearchHistoryBtn'); // Get the clear button
 
     const li = document.createElement('li');
     li.textContent = city;
-
+    li.className = 'list-group-item'; // Add class for styling if needed
     li.addEventListener('click', async () => {
         const { weather, forecast } = await getWeatherAndForecastData(city);
         displayCurrentWeather(weather);
@@ -68,6 +69,11 @@ function addToSearchHistory(city) {
 
     searchHistory.push(city);
     localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+
+    // Show the clear button if there is at least one item in the search history
+    if (searchHistory.length > 0) {
+        clearButton.style.display = 'block';
+    }
 }
 
 async function getForecastData(city) {
@@ -158,6 +164,10 @@ document.getElementById('searchForm').addEventListener('submit', async function(
     cityInput.value = '';
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+    populateSearchHistory();
+  });
+
 document.getElementById('clearSearchHistoryBtn').addEventListener('click', function() {
     const searchHistorySection = document.getElementById('searchHistory');
     const ul = searchHistorySection.querySelector('ul');
@@ -177,22 +187,28 @@ document.getElementById('deleteSearchesBtn').addEventListener('click', function(
 
 function populateSearchHistory() {
     const searchHistorySection = document.getElementById('searchHistory');
-    const ul = searchHistorySection.querySelector('ul') || document.createElement('ul');
-
+    const ul = searchHistorySection.querySelector('ul');
+    ul.innerHTML = ''; // Clear out the current list
+  
     searchHistory.forEach(city => {
-        const li = document.createElement('li');
-        li.textContent = city;
-
-        li.addEventListener('click', async () => {
-            const { weather, forecast } = await getWeatherAndForecastData(city);
-            displayCurrentWeather(weather);
-            displayForecast(forecast);
-        });
-
-        ul.appendChild(li);
+      const li = document.createElement('li');
+      li.textContent = city;
+      li.className = 'list-group-item'; // Add Bootstrap class for styling
+      li.addEventListener('click', async () => {
+        const { weather, forecast } = await getWeatherAndForecastData(city);
+        displayCurrentWeather(weather);
+        displayForecast(forecast);
+      });
+      ul.appendChild(li);
     });
-
-    searchHistorySection.appendChild(ul);
-}
+  
+    // Get the clear button and toggle its visibility
+    const clearButton = document.getElementById('clearSearchHistoryBtn');
+    if (searchHistory.length > 0) {
+      clearButton.style.display = 'block'; // Show button if there are items
+    } else {
+      clearButton.style.display = 'none'; // Hide button if there are no items
+    }
+  }
 
 populateSearchHistory();
