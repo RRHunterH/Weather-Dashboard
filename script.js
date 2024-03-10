@@ -1,4 +1,4 @@
-const apiKey = 'Bd5e378503939ddaee76f12ad7a97608';
+const apiKey = '4fab18ec8b2629b2c5bd58592bc2de4c';
 const apiUrl = 'https://api.openweathermap.org/data/2.5';
 
 const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
@@ -46,8 +46,9 @@ function convertToFahrenheit(celsius) {
 }
 
 function formatTemperature(temperature) {
-    return convertToFahrenheit(temperature).toFixed(3).replace(/\.?0+$/, '');
+    return temperature.toFixed(1)
 }
+
 
 function addToSearchHistory(city) {
     const searchHistorySection = document.getElementById('searchHistory');
@@ -85,20 +86,32 @@ function displayForecast(data) {
     forecastSection.innerHTML = '';
 
     if (data) {
-        const forecastList = data.list.slice(0, 5);
-        const forecastHtml = forecastList.map(item => {
+        let dailyForecasts = {};
+        data.list.forEach(item => {
+            const date = new Date(item.dt_txt).toLocaleDateString();
+            if (!dailyForecasts[date]) {
+                dailyForecasts[date] = [];
+            }
+            dailyForecasts[date].push(item);
+        });
+
+        let forecasts = Object.values(dailyForecasts).map(items => items[Math.floor(items.length / 2)]);
+
+        forecasts = forecasts.slice(0, 5);
+
+        const forecastHtml = forecasts.map(item => {
             const { dt_txt, main, weather, wind } = item;
             const weatherIconUrl = `http://openweathermap.org/img/w/${weather[0].icon}.png`;
 
             return `
-        <div class="forecast-item">
-          <p>Date: ${new Date(dt_txt).toLocaleDateString()}</p>
-          <img src="${weatherIconUrl}" alt="${weather[0].description}">
-          <p>Temperature: ${formatTemperature(main.temp)}°F</p>
-          <p>Humidity: ${main.humidity}%</p>
-          <p>Wind Speed: ${wind.speed} m/s</p>
-        </div>
-      `;
+                <div class="forecast-item">
+                  <p>Date: ${new Date(dt_txt).toLocaleDateString()}</p>
+                  <img src="${weatherIconUrl}" alt="${weather[0].description}">
+                  <p>Temperature: ${formatTemperature(main.temp)}°F</p>
+                  <p>Humidity: ${main.humidity}%</p>
+                  <p>Wind Speed: ${wind.speed} m/s</p>
+                </div>
+            `;
         }).join('');
 
         forecastSection.innerHTML = forecastHtml;
