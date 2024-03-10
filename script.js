@@ -1,7 +1,7 @@
 const apiKey = '4fab18ec8b2629b2c5bd58592bc2de4c';
 const apiUrl = 'https://api.openweathermap.org/data/2.5';
 
-const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
 
 async function getWeatherAndForecastData(city) {
     try {
@@ -158,13 +158,11 @@ document.getElementById('searchForm').addEventListener('submit', async function(
     cityInput.value = '';
 });
 
-document.getElementById('searchHistory').addEventListener('click', async function(event) {
-    if (event.target.tagName === 'LI') {
-        const cityName = event.target.textContent;
-        const { weather, forecast } = await getWeatherAndForecastData(cityName);
-        displayCurrentWeather(weather);
-        displayForecast(forecast);
-    }
+document.getElementById('clearSearchHistoryBtn').addEventListener('click', function() {
+    const searchHistorySection = document.getElementById('searchHistory');
+    const ul = searchHistorySection.querySelector('ul');
+    ul.innerHTML = '';
+    localStorage.removeItem('searchHistory');
 });
 
 document.getElementById('deleteSearchesBtn').addEventListener('click', function() {

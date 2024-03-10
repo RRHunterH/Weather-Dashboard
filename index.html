@@ -3,34 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Weather App</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Weather Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>Weather Dashboard</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <div class="jumbotron container-fluid mt-2 text-center p-2" style="background-color:#36368b ;color: #ffffff;">
-      <h1> <strong>Weather Dashboard ☁️</strong></h1>
+  <div class="jumbotron text-center" style="background-color:#36368b; color: #ffffff;">
+    <h1><strong>Weather Dashboard ☁️</strong></h1>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4">
+        <form id="searchForm">
+          <div class="input-group mb-3">
+            <input type="text" id="cityInput" class="form-control" placeholder="Search for a City" required>
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="submit">Search</button>
+            </div>
+          </div>
+        </form>
+        <div id="searchHistory" class="search-history">
+            <h4>Search History</h4>
+            <ul class="list-group"></ul>
+            <button id="clearSearchHistoryBtn" class="btn btn-warning">Clear History</button>
+          </div>
+      </div>
+      <div class="col-md-8">
+        <div id="currentWeather" class="current-weather mb-3">
+        </div>
+        <div id="forecast" class="forecast">
+          <h3>5-Day Forecast</h3>
+        </div>
+      </div>
     </div>
-    <form id="searchForm">
-      <label for="cityInput">Search for a City:</label>
-      <input type="text" id="cityInput" required>
-      <button type="submit">Search</button>
-    </form>
-    <h4>Todays Weather<h4></h4>
-    <section id="currentWeather"></section>
-    <h3>5-Day Forcast<h3></h3>
-    <section id="forecast"></section>
-    <section id="searchHistory">
-      <button id="deleteSearchesBtn">Delete Searches</button>
-      <ul></ul>
-    </section>
-    <script src="script.js"></script>
-  </body>
-  </html>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
